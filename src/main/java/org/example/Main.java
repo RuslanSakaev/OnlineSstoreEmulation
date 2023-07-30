@@ -1,5 +1,9 @@
 package org.example;
 
+import exceptions.AmountException;
+import exceptions.CustomerException;
+import exceptions.ProductException;
+
 public class Main {
     public static void main(String[] args) {
         // Создание массива покупателей (инициализация 2 элементами)
@@ -20,11 +24,21 @@ public class Main {
 
         // Пример создания заказа с помощью статического метода makePurchase
         int quantity = 3;
-        orders[0] = Order.makePurchase(buyers[0], products[1], quantity);
+        try {
+            orders[0] = Order.makePurchase(buyers[0], products[1], quantity);
+        } catch (CustomerException | ProductException | AmountException e) {
+            System.out.println("Ошибка при создании заказа: " + e.getMessage());
+            e.printStackTrace();
+        }
 
         // Пример создания еще одного заказа
-        quantity = 1;
-        orders[1] = Order.makePurchase(buyers[1], products[3], quantity);
+        quantity = -5; // Пример передачи недопустимого количества товара
+        try {
+            orders[1] = Order.makePurchase(buyers[1], products[3], quantity);
+        } catch (CustomerException | ProductException | AmountException e) {
+            System.out.println("Ошибка при создании заказа: " + e.getMessage());
+            e.printStackTrace();
+        }
 
         // Пример вывода информации о заказах
         for (Order order : orders) {
@@ -39,5 +53,3 @@ public class Main {
         }
     }
 }
-
-
