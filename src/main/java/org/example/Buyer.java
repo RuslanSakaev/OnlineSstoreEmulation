@@ -10,6 +10,10 @@ public class Buyer {
         this.age = age;
         this.phone = phone;
     }
+    // Статический метод для создания объекта Buyer
+    public static Buyer createBuyer(String fullName, int age, String phone) {
+        return new Buyer(fullName, age, phone);
+    }
 
     // Геттеры и сеттеры
 

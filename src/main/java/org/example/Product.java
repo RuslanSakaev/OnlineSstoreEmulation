@@ -9,6 +9,11 @@ public class Product {
         this.price = price;
     }
 
+    // Статический метод для создания объекта Product
+    public static Product createProduct(String name, double price) {
+        return new Product(name, price);
+    }
+
     // Геттеры и сеттеры
 
     public String getName() {

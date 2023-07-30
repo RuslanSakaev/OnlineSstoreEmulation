@@ -11,6 +11,11 @@ public class Order {
         this.quantity = quantity;
     }
 
+    // Статический метод для совершения покупки и создания объекта Order
+    public static Order makePurchase(Buyer buyer, Product product, int quantity) {
+        return new Order(buyer, product, quantity);
+    }
+
     // Геттеры и сеттеры
 
     public Buyer getBuyer() {
