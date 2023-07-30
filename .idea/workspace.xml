@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="902ff717-5155-491f-80c4-53b06ce93bb4" name="Changes" comment="Создал классы исключений">
+    <list default="true" id="902ff717-5155-491f-80c4-53b06ce93bb4" name="Changes" comment="Вызов метода с ошибками">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
     </list>
@@ -90,7 +90,14 @@
       <option name="project" value="LOCAL" />
       <updated>1690718606455</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Вызов метода с ошибками">
+      <created>1690720755151</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1690720755151</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -109,6 +116,7 @@
     <MESSAGE value="Создал классы покупателей" />
     <MESSAGE value="Создал метод «совершить покупку»" />
     <MESSAGE value="Создал классы исключений" />
-    <option name="LAST_COMMIT_MESSAGE" value="Создал классы исключений" />
+    <MESSAGE value="Вызов метода с ошибками" />
+    <option name="LAST_COMMIT_MESSAGE" value="Вызов метода с ошибками" />
   </component>
 </project>

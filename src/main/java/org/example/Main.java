@@ -5,13 +5,16 @@ import exceptions.CustomerException;
 import exceptions.ProductException;
 
 public class Main {
-    public static void main(String[] args) throws ProductException, AmountException {
-        // Создание массива покупателей (инициализация 2 элементами)
-        Buyer[] buyers = new Buyer[2];
-        buyers[0] = Buyer.createBuyer("Иванов Иван", 30, "+7 123-456-7890");
-        buyers[1] = Buyer.createBuyer("Петров Петр", 25, "+7 987-654-3210");
+    public static void main(String[] args) {
+        // Создание массива покупателей
+        Buyer[] buyers = new Buyer[5];
+        buyers[0] = Buyer.createBuyer("Иванов Иван Иванович", 30, "+7 123-456-7890");
+        buyers[1] = Buyer.createBuyer("Петров Петр Семёнович", 25, "+7 987-654-3210");
+        buyers[2] = Buyer.createBuyer("Николаев Иван Васильевич", 50, "+7 987-654-3210");
+        buyers[3] = Buyer.createBuyer("Гаврилов Лев Николавеич", 43, "+7 987-654-3210");
+        buyers[4] = Buyer.createBuyer("Семенова Анна Владимировна", 26, "+7 987-654-3210");
 
-        // Создание массива товаров (инициализация 5 элементами)
+        // Создание массива товаров
         Product[] products = new Product[5];
         products[0] = Product.createProduct("Ноутбук", 1000.0);
         products[1] = Product.createProduct("Смартфон", 500.0);
@@ -19,58 +22,18 @@ public class Main {
         products[3] = Product.createProduct("Клавиатура", 70.0);
         products[4] = Product.createProduct("Мышь", 30.0);
 
-        // Создание массива заказов (пустой на 5 элементов)
+        // Создание массива заказов
         Order[] orders = new Order[5];
 
-        // Пример вызова метода совершения покупки несколько раз с обработкой исключений в заданном порядке
-        int quantity = 3;
+        // Вызов метода совершения покупки несколько раз и заполнение массива покупок возвращаемыми значениями
         try {
-            // Передаем неверный товар, должно вывести сообщение об ошибке
-            orders[0] = Order.makePurchase(buyers[0], null, quantity);
-        } catch (ProductException e) {
-            System.out.println("Ошибка при создании заказа: " + e.getMessage());
-        } catch (AmountException | CustomerException e) {
-            // Ничего не делаем, так как это не ошибка связанная с неверным товаром
-        }
-
-        // Пример создания еще одного заказа с неверным количеством
-        quantity = -5; // Передаем недопустимое количество товара
-        try {
-            orders[1] = Order.makePurchase(buyers[1], products[3], quantity);
-        } catch (ProductException e) {
-            System.out.println("Ошибка при создании заказа: " + e.getMessage());
-        } catch (AmountException e) {
-            System.out.println("Ошибка при создании заказа: " + e.getMessage() + ". Покупка будет совершена в количестве 1.");
-            try {
-                // Покупка в количестве 1, так как было передано неверное количество
-                orders[1] = Order.makePurchase(buyers[1], products[3], 1);
-            } catch (CustomerException ex) {
-                System.out.println("Ошибка при создании заказа: " + ex.getMessage());
-                System.exit(1); // Выход из программы с кодом ошибки 1
-            }
-        } catch (CustomerException e) {
-            System.out.println("Ошибка при создании заказа: " + e.getMessage());
-            System.exit(1); // Выход из программы с кодом ошибки 1
-        }
-
-        // Пример создания еще одного заказа с неверным пользователем
-        quantity = 2;
-        try {
-            // Передаем неверного пользователя, должно вызвать исключение
-            orders[2] = Order.makePurchase(null, products[1], quantity);
-        } catch (ProductException | AmountException e) {
-            System.out.println("Ошибка при создании заказа: " + e.getMessage());
-        } catch (CustomerException e) {
-            System.out.println("Ошибка при создании заказа: " + e.getMessage());
-            System.exit(1); // Выход из программы с кодом ошибки 1
-        }
-
-        // Пример создания еще одного заказа с верными данными
-        quantity = 2;
-        try {
-            orders[3] = Order.makePurchase(buyers[0], products[1], quantity);
+            orders[0] = makePurchase(buyers[0], products[1], 3);
+            orders[1] = makePurchase(buyers[1], products[3], 5);
+            orders[2] = makePurchase(buyers[4], products[1], 2);
+            orders[3] = makePurchase(buyers[3], products[2], 2);
+            orders[4] = makePurchase(buyers[3], products[2], 2);
         } catch (ProductException | AmountException | CustomerException e) {
-            // Ничего не делаем, так как это не ошибка связанная с неверным товаром, количеством или пользователем
+            System.out.println("Ошибка при создании заказа: " + e.getMessage());
         }
 
         // Пример вывода информации о заказах
@@ -84,6 +47,7 @@ public class Main {
                 System.out.println("-----------------------------");
             }
         }
+
         // Подсчет и вывод итогового количества совершенных покупок
         int totalPurchases = 0;
         for (Order order : orders) {
@@ -92,6 +56,22 @@ public class Main {
             }
         }
         System.out.println("Итоговое количество совершенных покупок: " + totalPurchases);
+    }
+
+    public static Order makePurchase(Buyer buyer, Product product, int quantity) throws ProductException, AmountException, CustomerException {
+        if (product == null) {
+            throw new ProductException("Товар не найден.");
+        }
+
+        if (quantity <= 0 || quantity > 10) {
+            throw new AmountException("Неверное количество товара.");
+        }
+
+        if (buyer == null) {
+            throw new CustomerException("Пользователь не найден.");
+        }
+
+        return new Order(buyer, product, quantity);
     }
 }
 
